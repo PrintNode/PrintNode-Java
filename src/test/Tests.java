@@ -37,7 +37,7 @@ public class Tests {
 
 	public APIClient makeClient() throws IOException{
 		Auth anAuth = new Auth();
-		anAuth.setApiKey("god");
+		anAuth.setApiKey("");
 		APIClient aClient = new APIClient(anAuth);
 		return aClient;
 	}
@@ -45,7 +45,7 @@ public class Tests {
 	@Test
 	public void testAuth() throws IOException{
 		Auth testAuth = new Auth();
-		testAuth.setApiKey("god");
+		testAuth.setApiKey("");
 
 		APIClient testClient = new APIClient(testAuth);
 
