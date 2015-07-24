@@ -33,5 +33,4 @@ The included *compile.sh* will compile all the files and place them in PrintNode
 ##Docs
 
 A *javadoc* is included in PrintNode-Java/docs/.
-=======
-PrintNode Java Library
+
