@@ -2,7 +2,7 @@
 
 ##Prerequisites
 * JUnit
-* changing line 40 and 48 to be the ApiKey of a **Parent Account**.
+* changing line 40 and 48 of *tests.java* to be the ApiKey of a **Parent Account**.
 * compile Tests.java via `javac -cp "../../lib/\*:../../jar/\*" Tests.java`
 
 ##Running the tests
