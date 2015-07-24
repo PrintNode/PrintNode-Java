@@ -1,5 +1,4 @@
 # PrintNode-Java
-<<<<<<< HEAD
 
 PrintNode is a cloud printing service which allows you to connect any printer to your application using our PrintNode Client and easy to use JSON API.
 
@@ -36,4 +35,3 @@ The included *compile.sh* will compile all the files and place them in PrintNode
 A *javadoc* is included in PrintNode-Java/docs/.
 =======
 PrintNode Java Library
->>>>>>> ef0913e91dba95cf71ab09498ce5e151d0180c27
