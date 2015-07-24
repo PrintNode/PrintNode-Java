@@ -6,6 +6,6 @@
 * compile Tests.java via `javac -cp "../../lib/\*:../../jar/\*" Tests.java`
 
 ##Running the tests
-The tests can be run by executing `java -cp ../.../lib/*:. org.junit.runner.JUnitCore Tests`.
+The tests can be run by executing `java -cp ../.../lib/*:../../jar/\*:. org.junit.runner.JUnitCore Tests`.
 
 
