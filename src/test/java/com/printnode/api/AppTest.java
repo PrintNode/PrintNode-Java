@@ -33,7 +33,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.util.EntityUtils;
 
-public class Tests {
+public class AppTest {
 
 	public APIClient makeClient() throws IOException{
 		Auth anAuth = new Auth();
