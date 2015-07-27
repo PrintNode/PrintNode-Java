@@ -40,7 +40,11 @@ The included *compile.sh* will then compile all the files and place them in Prin
 
 ##Maven
 
-Running `maven install dependency:copy-dependencies package` will build a PrintNode-Java.jar into target/ and will put all the dependencies required in target/dependency/.
+###Prerequisites
+
+* Change `/src/test/java/com/printnode/api/AppTest.java to use your own API-Key.
+
+Running `maven install dependency:copy-dependencies package` in the base folder will then build a PrintNode-Java.jar into target/ and will put all the dependencies required in target/dependency/.
 
 ##Docs
 
