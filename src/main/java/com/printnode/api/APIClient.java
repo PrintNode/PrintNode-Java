@@ -77,7 +77,7 @@ public class APIClient{
 		}
 	};
 
-	private final static String API_URL = "https://api.printnode.com";
+	private static String API_URL = "https://api.printnode.com";
 
 	private String[] childHeaders = new String[2];
 
@@ -85,7 +85,7 @@ public class APIClient{
 
 	/**
 	 * default constructor for the APIClient.
-	 * 
+	 *
 	 * @param auth an Auth object which the APIClient will then save into a CredentialsProvider object.
 	 * @see Auth
 	 * */
@@ -99,6 +99,10 @@ public class APIClient{
 		childHeaders[0] = "";
 		childHeaders[1] = "";
 
+	}
+
+	public void setApiUrl(String url){
+		API_URL = url;
 	}
 
 	/**
