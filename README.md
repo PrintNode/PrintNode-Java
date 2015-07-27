@@ -40,7 +40,7 @@ The included *compile.sh* will then compile all the files and place them in Prin
 
 ##Maven
 
-Running maven install dependency:copy-dependencies package will build a PrintNode-Java.jar into target/ and will put all the dependencies required in target/dependency/.
+Running `maven install dependency:copy-dependencies package` will build a PrintNode-Java.jar into target/ and will put all the dependencies required in target/dependency/.
 
 ##Docs
 
