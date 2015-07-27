@@ -342,6 +342,8 @@ public class APIClient{
 		return tag;
 	}
 
+
+
 	/**
 	 * Given a description for an apikey, creates that apikey.
 	 *
@@ -758,6 +760,28 @@ public class APIClient{
 		}
 		return printers;
 
+	}
+
+	public String getClientKey(String uuid, String edition, String version) throws IOException{
+		CloseableHttpClient client = HttpClients.custom().setDefaultCredentialsProvider(credentials).build();
+		String clientKeyValue;
+		try{
+			HttpGet httpget = new HttpGet(API_URL+"/client/apikey/"+uuid+"?edition="+edition+"&version="+version);
+			httpget.addHeader(childHeaders[0],childHeaders[1]);
+			CloseableHttpResponse response = client.execute(httpget);
+			try{
+				HttpEntity entity = response.getEntity();
+				String responseString = EntityUtils.toString(entity);
+				checkResponseForExceptions(response.getStatusLine().getStatusCode(),responseString);
+				String responseParse = new JsonParser().parse(responseString).getAsString();
+				clientKeyValue = responseParse;
+			}finally{
+				response.close();
+			}
+		}finally{
+			client.close();
+		}
+		return clientKeyValue;
 	}
 
 	/**
