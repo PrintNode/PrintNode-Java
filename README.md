@@ -28,7 +28,19 @@ public class Example{
 
 ##Compiling from source
 
-The included *compile.sh* will compile all the files and place them in PrintNode-Java/build/.
+###Prerequisites
+
+* org.apache.commons
+* org.apache.http
+* com.google.gson
+* org.apache.commons-logging
+Then place these files in lib/ or add them to your CLASSPATH.
+
+The included *compile.sh* will then compile all the files and place them in PrintNode-Java/build/.
+
+##Maven
+
+Running maven install dependency:copy-dependencies package will build a PrintNode-Java.jar into target/ and will put all the dependencies required in target/dependency/.
 
 ##Docs
 
