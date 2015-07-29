@@ -72,7 +72,7 @@ public class AppTest {
 
 		Printer[] printers = aClient.getPrinters("");
 
-		assertTrue("Failed: Should be 'created'",printers[0].getComputer() instanceof Computer);
+		assertTrue("Failed: Should be instance of Computer",printers[0].getComputer() instanceof Computer);
 	}
 
 	@Test
@@ -81,14 +81,16 @@ public class AppTest {
 
 		PrintJob[] printjobs = aClient.getPrintJobs("");
 
-		assertTrue("Failed: should be 'created'",printjobs[0].getPrinter().getComputer() instanceof Computer);
+		assertTrue("Failed: should be instance of Computer",printjobs[0].getPrinter().getComputer() instanceof Computer);
 	}
 
 	@Test
 	public void testSubmitPrintJob() throws IOException,InterruptedException{
 		APIClient aClient = makeClient();
 
-		PrintJobJson myPrintJobCreation = new PrintJobJson(59097,"PrintNode-Java","pdf_uri", "http://something","From PrintNode-Java Client");
+		Printer aPrinter = aClient.getPrinters("")[0];
+
+		PrintJobJson myPrintJobCreation = new PrintJobJson(aPrinter.getId(),"PrintNode-Java","pdf_uri", "http://something","From PrintNode-Java Client");
 
 		int response = aClient.createPrintJob(myPrintJobCreation);
 	}
@@ -179,7 +181,7 @@ public class AppTest {
 	public void testClients() throws IOException,InterruptedException{
 		APIClient aClient = makeClient();
 
-		Client[] clients = aClient.getClients("10-15");
+		Client[] clients = aClient.getClients("");
 
 		int[] clientsDisabled = aClient.modifyClientDownloads(Integer.toString(clients[0].getId()), false);
 
