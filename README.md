@@ -34,6 +34,7 @@ public class Example{
 * org.apache.http
 * com.google.gson
 * org.apache.commons-logging
+
 Then place these files in lib/ or add them to your CLASSPATH.
 
 The included *compile.sh* will then compile all the files and place them in PrintNode-Java/build/.
