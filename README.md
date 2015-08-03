@@ -34,6 +34,7 @@ public class Example{
 * org.apache.http
 * com.google.gson
 * org.apache.commons-logging
+
 Then place these files in lib/ or add them to your CLASSPATH.
 
 The included *compile.sh* will then compile all the files and place them in PrintNode-Java/build/.
@@ -44,7 +45,7 @@ The included *compile.sh* will then compile all the files and place them in Prin
 
 * Change `/src/test/java/com/printnode/api/AppTest.java` to use your own API-Key.
 
-Running `maven install dependency:copy-dependencies package` in the base folder will then build a PrintNode-Java.jar into target/ and will put all the dependencies required in target/dependency/.
+Running `mvn install dependency:copy-dependencies package` in the base folder will then build a PrintNode-Java.jar into target/ and will put all the dependencies required in target/dependency/.
 
 ##Docs
 
