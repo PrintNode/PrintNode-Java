@@ -1,109 +1,137 @@
 package com.printnode.api;
 
-import com.google.gson.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * Object to be serailized into JSON in createPrintJob.
  * */
-public class Options{
+public class Options {
 
-	private String bin;
-	private Boolean collate;
-	private int copies = -1;
-	private String dpi;
-	private String duplex;
-	private Boolean fitToPage;
-	private String media;
-	private int nup = -1;
-	private String pages;
-	private String paper;
-	private int rotate = -1;
+    /**
+     * Which bin you want to use....
+     * */
+    private String bin;
+    /**
+     * Whether you want to have collate enabled.
+     * */
+    private Boolean collate;
+    /**
+     * the amount of copies you want to have.
+     * */
+    private int copies = -1;
+    /**
+     * The DPI you want to use.
+     * */
+    private String dpi;
+    /**
+     * The duplex you want to use.
+     * */
+    private String duplex;
+    /**
+     * Whether you want to fit the printjob to page.
+     * */
+    private Boolean fitToPage;
+    /**
+     * Which type of media you want to use.
+     * */
+    private String media;
+    /**
+     * The NUP you want to use.
+     * */
+    private int nup = -1;
+    /**
+     * Which pages of the printjob you want to print.
+     * */
+    private String pages;
+    /**
+     * What type of paper you are using.
+     * */
+    private String paper;
+    /**
+     * Rotation of the printjob.
+     * */
+    private int rotate = -1;
 
-	/**
-	 * Default constructor.
-	 * */
-	public Options(){
-	}
+    /**
+     * Default constructor.
+     * */
+    public Options() {
+    }
 
-	/**
-	 * @param bin set the bin we want to use.
-	 * */
-	public void setBin(String bin){
-		this.bin = bin;
-	}
+    /**
+     * @param newBin set the bin we want to use.
+     * */
+    public final void setBin(final String newBin) {
+        bin = newBin;
+    }
 
-	/**
-	 * @param collate Set whether we want to collate.
-	 * */
-	public void setCollate(boolean collate){
-		this.collate = collate;
-	}
+    /**
+     * @param newCollate Set whether we want to collate.
+     * */
+    public final void setCollate(final boolean newCollate) {
+        collate = newCollate;
+    }
 
-	/**
-	 * @param copies Set the amount of copies we want to print.
-	 * */
-	public void setCopies(int copies){
-		this.copies = copies;
-	}
+    /**
+     * @param newCopies Set the amount of copies we want to print.
+     * */
+    public final void setCopies(final int newCopies) {
+        copies = newCopies;
+    }
 
-	/**
-	 * @param dpi Set the DPI.
-	 * */
-	public void setDpi(String dpi){
-		this.dpi = dpi;
-	}
+    /**
+     * @param newDpi Set the DPI.
+     * */
+    public final void setDpi(final String newDpi) {
+        dpi = newDpi;
+    }
 
-	/**
-	 * @param duplex Set the duplex.
-	 * */
-	public void setDuplex(String duplex){
-		this.duplex = duplex;
-	}
+    /**
+     * @param newDuplex Set the duplex.
+     * */
+    public final void setDuplex(final String newDuplex) {
+        duplex = newDuplex;
+    }
 
-	/**
-	 * @param fitToPage set whether we want to fit the content to the page.
-	 * */
-	public void setFitToPage(boolean fitToPage){
-		this.fitToPage = fitToPage;
-	}
+    /**
+     * @param newFitToPage set whether we want to fit the content to the page.
+     * */
+    public final void setFitToPage(final boolean newFitToPage) {
+        fitToPage = newFitToPage;
+    }
 
-	/**
-	 * @param media Set the media for the printer.
-	 * */
-	public void setMedia(String media){
-		this.media = media;
-	}
+    /**
+     * @param newMedia Set the media for the printer.
+     * */
+    public final void setMedia(final String newMedia) {
+        media = newMedia;
+    }
 
-	/**
-	 * @param nup Set number of pages to print per page for a compact layout printing.
-	 * */
-	public void setNup(int nup){
-		this.nup = nup;
-	}
+    /**
+     * @param newNup Set number of pages to print per page for a compact layout printing.
+     * */
+    public final void setNup(final int newNup) {
+        nup = newNup;
+    }
 
-	/**
-	 * @param pages set the pages to print.
-	 * */
-	public void setPages(String pages){
-		this.pages = pages;
-	}
+    /**
+     * @param newPages set the pages to print.
+     * */
+    public final void setPages(final String newPages) {
+        pages = newPages;
+    }
 
-	/**
-	 * @param paper set paper type.
-	 * */
-	public void setPaper(String paper){
-		this.paper = paper;
-	}
+    /**
+     * @param newPaper set paper type.
+     * */
+    public final void setPaper(final String newPaper) {
+        paper = newPaper;
+    }
 
-	/**
-	 * @param rotate set rotation. Can only be 90,180 or 270.
-	 * */
-	public void setRotate(int rotate){
-		this.rotate = rotate;
-	}
+    /**
+     * @param newRotate set rotation. Can only be 90,180 or 270.
+     * */
+    public final void setRotate(final int newRotate) {
+        rotate = newRotate;
+    }
 
 
 }
