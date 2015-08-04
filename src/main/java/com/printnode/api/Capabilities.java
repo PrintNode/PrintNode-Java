@@ -58,7 +58,7 @@ public class Capabilities {
     /**
      * A list of paper names and their sizes.
      * */
-    private HashMap<String, int[]> papers;
+    private HashMap<String, int[]> papers = new HashMap<String, int[]>();
     /**
      * Whether this printer supports custom paper size.
      * */

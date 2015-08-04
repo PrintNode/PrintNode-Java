@@ -38,19 +38,19 @@ public class AppTest {
     public APIClient makeClient() throws IOException,InterruptedException{
         Thread.sleep(1000);
         Auth anAuth = new Auth();
-        anAuth.setApiKey("god");
+        anAuth.setApiKey("MyAuth");
         APIClient aClient = new APIClient(anAuth);
-        aClient.setApiUrl("https://apidev.printnode.com");
+        aClient.setApiUrl("https://api.printnode.com");
         return aClient;
     }
 
     @Test
     public void testAuth() throws IOException,InterruptedException{
         Auth testAuth = new Auth();
-        testAuth.setApiKey("god");
+        testAuth.setApiKey("MyAuth");
 
         APIClient testClient = new APIClient(testAuth);
-        testClient.setApiUrl("https://apidev.printnode.com");
+        testClient.setApiUrl("https://api.printnode.com");
 
         Whoami aRequest = testClient.getWhoami();
 
@@ -87,13 +87,21 @@ public class AppTest {
     }
 
     @Test
+    public void testScales() throws IOException,InterruptedException {
+        APIClient aClient = makeClient();
+
+        Scale aScale = aClient.getScales(0)[0];
+
+        assertTrue("Failed: should exist", aScale.getProduct() != null);
+    }
+
+    @Test
     public void testSubmitPrintJob() throws IOException,InterruptedException{
         APIClient aClient = makeClient();
 
         Printer aPrinter = aClient.getPrinters("")[0];
 
         PrintJobJson myPrintJobCreation = new PrintJobJson(aPrinter.getId(),"PrintNode-Java","pdf_uri", "http://something","From PrintNode-Java Client");
-
         int response = aClient.createPrintJob(myPrintJobCreation);
     }
 
@@ -168,6 +176,7 @@ public class AppTest {
 
         assertTrue("Failed: was false or something else", apiKeyDelete);
 
+        childClient.deleteAccount();
     }
 
     @Test

@@ -763,6 +763,31 @@ public class APIClient {
 
     }
 
+    public final Scale[] getScales(final int computerId) throws IOException {
+        CloseableHttpClient client = HttpClients.custom().setDefaultCredentialsProvider(credentials).build();
+        Scale[] scales;
+        try {
+            HttpGet httpget = new HttpGet(apiUrl + "/computer/" + computerId + "/scales/");
+            httpget.addHeader(childHeaders[0], childHeaders[1]);
+            CloseableHttpResponse response = client.execute(httpget);
+            try {
+                HttpEntity entity = response.getEntity();
+                String responseString = EntityUtils.toString(entity);
+                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
+                JsonArray responseParse = new JsonParser().parse(responseString).getAsJsonArray();
+                scales = new Scale[responseParse.size()];
+                for (int i = 0; i < responseParse.size(); i++) {
+                    scales[i] = new Scale(responseParse.get(i).getAsJsonObject());
+                }
+            } finally {
+                response.close();
+            }
+        } finally {
+            client.close();
+        }
+        return scales;
+
+    }
     /**
      * Given a set of printers, return an array of printers.
      *
@@ -864,6 +889,7 @@ public class APIClient {
         }
         return apikeyvalue;
     }
+
 
     /**
      * Given a tagname, return the value of that tag.
