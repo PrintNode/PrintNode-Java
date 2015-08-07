@@ -141,7 +141,11 @@ public class Capabilities {
                     JsonArray jsonPaperDimensions = paperEntry.getValue().getAsJsonArray();
                     int[] paperDimensions = new int[2];
                     for (int i = 0; i < jsonPaperDimensions.size(); i++) {
-                        paperDimensions[i] = jsonPaperDimensions.get(i).getAsInt();
+                        if(!jsonPaperDimensions.get(i).isJsonNull()){
+                            paperDimensions[i] = jsonPaperDimensions.get(i).getAsInt();
+                        }else{
+                            paperDimensions[i] = -1;
+                        }
                     }
                     papers.put(paperEntry.getKey(), paperDimensions);
                 }

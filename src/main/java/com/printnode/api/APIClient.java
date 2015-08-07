@@ -2,6 +2,7 @@ package com.printnode.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -143,7 +144,37 @@ public class APIClient {
     }
 
     /**
-     * Deletes apikey specif ied by the parameter.
+     * Takes part of a response and creates a JsonElement from the response.
+     *
+     * @param response HTTP Response in JSON form.
+     *
+     * @return JsonElement of the response.
+     * */
+    public final JsonElement responseToJsonElement(final CloseableHttpResponse response) throws IOException {
+        String responseString = EntityUtils.toString(response.getEntity());
+        int statusCode = response.getStatusLine().getStatusCode();
+        checkResponseForExceptions(statusCode,responseString);
+        JsonElement jsonResponse = new JsonParser().parse(responseString);
+        return jsonResponse;
+    }
+
+    /**
+     * Creates a non-default Gson object.
+     *
+     * @return Gson object with type-adapters required for our objects.
+     * */
+    public final Gson gsonWithAdapters() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Integer.class, INT_ADAPTER)
+                .registerTypeAdapter(int.class, INT_ADAPTER)
+                .registerTypeAdapter(Boolean.class, BOOL_ADAPTER)
+                .registerTypeAdapter(boolean.class, BOOL_ADAPTER)
+                .create();
+        return gson;
+    }
+
+    /**
+     * Deletes apikey specified by the parameter.
      *
      * @param description apikey name to be deleted.
      * @return Boolean whether apikey was deleted or not.
@@ -157,10 +188,7 @@ public class APIClient {
             httpdelete.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpdelete);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonPrimitive responseParse = new JsonParser().parse(responseString).getAsJsonPrimitive();
+                JsonPrimitive responseParse = responseToJsonElement(response).getAsJsonPrimitive();
                 result = responseParse.getAsBoolean();
             } finally {
                 response.close();
@@ -186,10 +214,7 @@ public class APIClient {
             httpdelete.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpdelete);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonPrimitive responseParse = new JsonParser().parse(responseString).getAsJsonPrimitive();
+                JsonPrimitive responseParse = responseToJsonElement(response).getAsJsonPrimitive();
                 result = responseParse.getAsBoolean();
             } finally {
                 response.close();
@@ -217,10 +242,7 @@ public class APIClient {
             httpdelete.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpdelete);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonPrimitive responseParse = new JsonParser().parse(responseString).getAsJsonPrimitive();
+                JsonPrimitive responseParse = responseToJsonElement(response).getAsJsonPrimitive();
                 result = responseParse.getAsBoolean();
             } finally {
                 response.close();
@@ -248,12 +270,7 @@ public class APIClient {
             HttpPatch httppost = new HttpPatch(apiUrl + "/download/clients/" + clientSet);
             httppost.addHeader(childHeaders[0], childHeaders[1]);
             httppost.addHeader("Content-Type", "application/json");
-            Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Integer.class, INT_ADAPTER)
-                .registerTypeAdapter(int.class, INT_ADAPTER)
-                .registerTypeAdapter(Boolean.class, BOOL_ADAPTER)
-                .registerTypeAdapter(boolean.class, BOOL_ADAPTER)
-                .create();
+            Gson gson = gsonWithAdapters();
             JsonObject jObject = new JsonObject();
             jObject.addProperty("enabled", enabled);
             String json = gson.toJson(jObject);
@@ -261,10 +278,7 @@ public class APIClient {
             httppost.setEntity(jsonEntity);
             CloseableHttpResponse response = client.execute(httppost);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonArray responseParse = new JsonParser().parse(responseString).getAsJsonArray();
+                JsonArray responseParse = responseToJsonElement(response).getAsJsonArray();
                 results = new int[responseParse.size()];
                 for (int i = 0; i < responseParse.size(); i++) {
                     results[i] = responseParse.get(i).getAsInt();
@@ -296,21 +310,13 @@ public class APIClient {
             HttpPatch httppost = new HttpPatch(apiUrl + "/account/");
             httppost.addHeader(childHeaders[0], childHeaders[1]);
             httppost.addHeader("Content-Type", "application/json");
-            Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Integer.class, INT_ADAPTER)
-                .registerTypeAdapter(int.class, INT_ADAPTER)
-                .registerTypeAdapter(Boolean.class, BOOL_ADAPTER)
-                .registerTypeAdapter(boolean.class, BOOL_ADAPTER)
-                .create();
+            Gson gson = gsonWithAdapters();
             String json = gson.toJson(accountInfo);
             StringEntity jsonEntity = new StringEntity(json);
             httppost.setEntity(jsonEntity);
             CloseableHttpResponse response = client.execute(httppost);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonObject responseParse = new JsonParser().parse(responseString).getAsJsonObject();
+                JsonObject responseParse = responseToJsonElement(response).getAsJsonObject();
                 account = new Whoami(responseParse);
             } finally {
                 response.close();
@@ -336,21 +342,13 @@ public class APIClient {
             HttpPost httppost = new HttpPost(apiUrl + "/account/tag/" + tagName);
             httppost.addHeader(childHeaders[0], childHeaders[1]);
             httppost.addHeader("Content-Type", "application/json");
-            Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Integer.class, INT_ADAPTER)
-                .registerTypeAdapter(int.class, INT_ADAPTER)
-                .registerTypeAdapter(Boolean.class, BOOL_ADAPTER)
-                .registerTypeAdapter(boolean.class, BOOL_ADAPTER)
-                .create();
+            Gson gson = gsonWithAdapters();
             String json = gson.toJson(tagValue);
             StringEntity jsonEntity = new StringEntity(json);
             httppost.setEntity(jsonEntity);
             CloseableHttpResponse response = client.execute(httppost);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                String responseParse = new JsonParser().parse(responseString).getAsString();
+                String responseParse = responseToJsonElement(response).getAsString();
                 tag = responseParse;
             } finally {
                 response.close();
@@ -378,10 +376,7 @@ public class APIClient {
             httppost.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httppost);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                String responseParse = new JsonParser().parse(responseString).getAsString();
+                String responseParse = responseToJsonElement(response).getAsString();
                 apikey = responseParse;
             } finally {
                 response.close();
@@ -410,21 +405,13 @@ public class APIClient {
             HttpPost httppost = new HttpPost(apiUrl + "/account/");
             httppost.addHeader(childHeaders[0], childHeaders[1]);
             httppost.addHeader("Content-Type", "application/json");
-            Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Integer.class, INT_ADAPTER)
-                .registerTypeAdapter(int.class, INT_ADAPTER)
-                .registerTypeAdapter(Boolean.class, BOOL_ADAPTER)
-                .registerTypeAdapter(boolean.class, BOOL_ADAPTER)
-                .create();
+            Gson gson = gsonWithAdapters();
             String json = gson.toJson(accountInfo);
             StringEntity jsonEntity = new StringEntity(json);
             httppost.setEntity(jsonEntity);
             CloseableHttpResponse response = client.execute(httppost);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonObject responseParse = new JsonParser().parse(responseString).getAsJsonObject();
+                JsonObject responseParse = responseToJsonElement(response).getAsJsonObject();
                 account = new CreateAccountObject(responseParse);
             } finally {
                 response.close();
@@ -450,21 +437,13 @@ public class APIClient {
             HttpPost httppost = new HttpPost(apiUrl + "/printjobs");
             httppost.addHeader(childHeaders[0], childHeaders[1]);
             httppost.addHeader("Content-Type", "application/json");
-            Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Integer.class, INT_ADAPTER)
-                .registerTypeAdapter(int.class, INT_ADAPTER)
-                .registerTypeAdapter(Boolean.class, BOOL_ADAPTER)
-                .registerTypeAdapter(boolean.class, BOOL_ADAPTER)
-                .create();
+            Gson gson = gsonWithAdapters();
             String json = gson.toJson(printjobinfo);
             StringEntity jsonEntity = new StringEntity(json);
             httppost.setEntity(jsonEntity);
             CloseableHttpResponse response = client.execute(httppost);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                int responseParse = new JsonParser().parse(responseString).getAsInt();
+                int responseParse = responseToJsonElement(response).getAsInt();
                 printjob = responseParse;
             } finally {
                 response.close();
@@ -490,10 +469,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonObject responseParse = new JsonParser().parse(responseString).getAsJsonObject();
+                JsonObject responseParse = responseToJsonElement(response).getAsJsonObject();
                 whoami = new Whoami(responseParse);
             } finally {
                 response.close();
@@ -526,10 +502,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonObject responseParse = new JsonParser().parse(responseString).getAsJsonObject();
+                JsonObject responseParse = responseToJsonElement(response).getAsJsonObject();
                 download = new Download(responseParse);
             } finally {
                 response.close();
@@ -559,10 +532,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonArray responseParse = new JsonParser().parse(responseString).getAsJsonArray();
+                JsonArray responseParse = responseToJsonElement(response).getAsJsonArray();
                 clients = new Client[responseParse.size()];
                 for (int i = 0; i < responseParse.size(); i++) {
                     clients[i] = new Client(responseParse.get(i).getAsJsonObject());
@@ -593,10 +563,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonArray responseParse = new JsonParser().parse(responseString).getAsJsonArray();
+                JsonArray responseParse = responseToJsonElement(response).getAsJsonArray();
                 computers = new Computer[responseParse.size()];
                 for (int i = 0; i < responseParse.size(); i++) {
                     computers[i] = new Computer(responseParse.get(i).getAsJsonObject());
@@ -633,10 +600,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonArray responseParse = new JsonParser().parse(responseString).getAsJsonArray();
+                JsonArray responseParse = responseToJsonElement(response).getAsJsonArray();
                 states = new State[responseParse.size()][];
                 for (int i = 0; i < responseParse.size(); i++) {
                     JsonArray jsonSpecificPrinterStates = responseParse.get(i).getAsJsonArray();
@@ -674,10 +638,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonArray responseParse = new JsonParser().parse(responseString).getAsJsonArray();
+                JsonArray responseParse = responseToJsonElement(response).getAsJsonArray();
                 printjobs = new PrintJob[responseParse.size()];
                 for (int i = 0; i < responseParse.size(); i++) {
                     printjobs[i] = new PrintJob(responseParse.get(i).getAsJsonObject());
@@ -692,7 +653,7 @@ public class APIClient {
 
     }
 
-    /**
+       /**
      * Given a set of printjobs, return an array of printjobs.
      *
      * @param printJobSet set of printjobs.
@@ -708,10 +669,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonArray responseParse = new JsonParser().parse(responseString).getAsJsonArray();
+                JsonArray responseParse = responseToJsonElement(response).getAsJsonArray();
                 printjobs = new PrintJob[responseParse.size()];
                 for (int i = 0; i < responseParse.size(); i++) {
                     printjobs[i] = new PrintJob(responseParse.get(i).getAsJsonObject());
@@ -745,10 +703,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonArray responseParse = new JsonParser().parse(responseString).getAsJsonArray();
+                JsonArray responseParse = responseToJsonElement(response).getAsJsonArray();
                 printers = new Printer[responseParse.size()];
                 for (int i = 0; i < responseParse.size(); i++) {
                     printers[i] = new Printer(responseParse.get(i).getAsJsonObject());
@@ -763,6 +718,14 @@ public class APIClient {
 
     }
 
+    /**
+     * Given a computer Id, return an array of scales for that commputer.
+     *
+     * @param computerId the computer id we want to find scales for
+     * @return Array of scales.
+     * @throws IOException if HTTP client is given bad values
+     * @see Scale
+     * */
     public final Scale[] getScales(final int computerId) throws IOException {
         CloseableHttpClient client = HttpClients.custom().setDefaultCredentialsProvider(credentials).build();
         Scale[] scales;
@@ -771,10 +734,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonArray responseParse = new JsonParser().parse(responseString).getAsJsonArray();
+                JsonArray responseParse = responseToJsonElement(response).getAsJsonArray();
                 scales = new Scale[responseParse.size()];
                 for (int i = 0; i < responseParse.size(); i++) {
                     scales[i] = new Scale(responseParse.get(i).getAsJsonObject());
@@ -804,10 +764,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                JsonArray responseParse = new JsonParser().parse(responseString).getAsJsonArray();
+                JsonArray responseParse = responseToJsonElement(response).getAsJsonArray();
                 printers = new Printer[responseParse.size()];
                 for (int i = 0; i < responseParse.size(); i++) {
                     printers[i] = new Printer(responseParse.get(i).getAsJsonObject());
@@ -847,10 +804,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                String responseParse = new JsonParser().parse(responseString).getAsString();
+                String responseParse = responseToJsonElement(response).getAsString();
                 clientKeyValue = responseParse;
             } finally {
                 response.close();
@@ -876,10 +830,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                String responseParse = new JsonParser().parse(responseString).getAsString();
+                String responseParse = responseToJsonElement(response).getAsString();
                 apikeyvalue = responseParse;
             } finally {
                 response.close();
@@ -906,10 +857,7 @@ public class APIClient {
             httpget.addHeader(childHeaders[0], childHeaders[1]);
             CloseableHttpResponse response = client.execute(httpget);
             try {
-                HttpEntity entity = response.getEntity();
-                String responseString = EntityUtils.toString(entity);
-                checkResponseForExceptions(response.getStatusLine().getStatusCode(), responseString);
-                String responseParse = new JsonParser().parse(responseString).getAsString();
+                String responseParse = responseToJsonElement(response).getAsString();
                 tagValue = responseParse;
             } finally {
                 response.close();
