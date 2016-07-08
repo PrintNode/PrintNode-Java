@@ -71,6 +71,9 @@ public class Printer {
         if (!response.get("description").isJsonNull()) {
             description = response.get("description").getAsString();
         }
+        if (!response.get("name").isJsonNull()) {
+            name = response.get("name").getAsString();
+        }
         if (!response.get("capabilities").isJsonNull()) {
             capabilities = new Capabilities(response.get("capabilities").getAsJsonObject());
         }
