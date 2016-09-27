@@ -45,7 +45,7 @@ public class PrintJobJson {
     /**
      * How many times you want to send this PrintJob.
      * */
-    private int qty = -1;
+    private int qty = 1;
 
     /**
      * Creates an object to be serialized into JSON.
