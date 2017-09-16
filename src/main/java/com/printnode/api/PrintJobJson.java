@@ -1,7 +1,8 @@
 package com.printnode.api;
 
-import java.io.IOException;
 import org.apache.commons.codec.binary.Base64;
+
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -67,7 +68,7 @@ public class PrintJobJson {
         printerId = newPrinterId;
         title = newTitle;
         contentType = newContentType;
-        if (contentType == "pdf_base64" || contentType == "raw_base64") {
+        if (contentType.equals("pdf_base64") || contentType.equals("raw_base64") ) {
             Path filePath = Paths.get(newContent);
             byte[] fileContent = Files.readAllBytes(filePath);
             content = new String(Base64.encodeBase64(fileContent));
