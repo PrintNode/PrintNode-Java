@@ -23,9 +23,9 @@ public class SubmittingAPrintJob{
 		PrintJobJson myPrintJobCreation = new PrintJobJson(myPrinterForPrintJob.getId(),"PrintNode-Java","pdf_uri","http://a.test.pdf","From PrintNode-Java");
 
 		//We'll then make the request by using APIClient.createPrintJob
-		int myPrintJobId = aClient.createPrintJob(myPrintJobCreation);
+		long myPrintJobId = aClient.createPrintJob(myPrintJobCreation);
 
 		//We can then look at the information of the PrintJob by using the id we just got on creation
-		PrintJob myPrintJob = aClient.getPrintJobs(Integer.toString(myPrintJobId))[0];
+		PrintJob myPrintJob = aClient.getPrintJobs(Long.toString(myPrintJobId))[0];
 	}
 }

@@ -56,9 +56,9 @@ public class PrintJob {
      * If the object is a JsonObject with different mappings, it is mapped to a Java Object.
      * @param response JsonObject of the response.
      * @see JsonObject
-     * @see JsonArray
-     * @see JsonPrimitive
-     * @see JsonElement
+     * @see com.google.gson.JsonArray
+     * @see com.google.gson.JsonPrimitive
+     * @see com.google.gson.JsonElement
      * */
     public PrintJob(final JsonObject response) {
         if (!response.get("id").isJsonNull()) {

@@ -102,7 +102,7 @@ public class AppTest {
         Printer aPrinter = aClient.getPrinters("")[0];
 
         PrintJobJson myPrintJobCreation = new PrintJobJson(aPrinter.getId(),"PrintNode-Java","pdf_uri", "http://something","From PrintNode-Java Client");
-        int response = aClient.createPrintJob(myPrintJobCreation);
+        long response = aClient.createPrintJob(myPrintJobCreation);
     }
 
     @Test
@@ -185,7 +185,7 @@ public class AppTest {
 
         Download latestClient = aClient.getLatestClient("windows");
 
-        assertTrue("Failed: was not windows",latestClient.getOs().equals("windows"));
+        assertTrue("Failed: was not an .exe file",latestClient.getFilename().endsWith("exe"));
     }
 
     @Test
@@ -197,6 +197,8 @@ public class AppTest {
         int[] clientsDisabled = aClient.modifyClientDownloads(Integer.toString(clients[0].getId()), false);
 
         assertTrue("Failed: client was not modified",clientsDisabled[0] == clients[0].getId());
+
+        int[] clientsEnabled = aClient.modifyClientDownloads(Integer.toString(clients[0].getId()), true);
     }
 
 }

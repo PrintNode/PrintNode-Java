@@ -88,7 +88,7 @@ public class Scale {
      * @param response JsonObject of the response.
      * @see JsonObject
      * @see JsonArray
-     * @see JsonPrimitive
+     * @see com.google.gson.JsonPrimitive
      * @see JsonElement
      * */
     public Scale(final JsonObject response) {

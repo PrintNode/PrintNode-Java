@@ -96,7 +96,7 @@ public class Whoami {
      * @param response JsonObject of the response.
      * @see JsonObject
      * @see JsonArray
-     * @see JsonPrimitive
+     * @see com.google.gson.JsonPrimitive
      * @see JsonElement
      * */
     public Whoami(final JsonObject response) {

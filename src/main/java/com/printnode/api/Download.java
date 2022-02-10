@@ -57,9 +57,9 @@ public class Download {
      * If the object is a JsonObject with different mappings, it is mapped to a Java Object.
      * @param response JsonObject of the response.
      * @see JsonObject
-     * @see JsonArray
-     * @see JsonPrimitive
-     * @see JsonElement
+     * @see com.google.gson.JsonArray
+     * @see com.google.gson.JsonPrimitive
+     * @see com.google.gson.JsonElement
      * */
 
     public Download(final JsonObject response) {
@@ -68,9 +68,6 @@ public class Download {
         }
         if (!response.get("edition").isJsonNull()) {
             edition = response.get("edition").getAsString();
-        }
-        if (!response.get("os").isJsonNull()) {
-            os = response.get("os").getAsString();
         }
         if (!response.get("filename").isJsonNull()) {
             filename = response.get("filename").getAsString();
@@ -102,13 +99,6 @@ public class Download {
      * */
     public final String getEdition() {
         return edition;
-    }
-
-    /**
-     * @return OS of the client.
-     * */
-    public final String getOs() {
-        return os;
     }
 
     /**

@@ -430,9 +430,9 @@ public class APIClient {
      * @throws IOException if HTTP client is given bad values
      * @see PrintJobJson
      * */
-    public final int createPrintJob(final PrintJobJson printjobinfo) throws IOException {
+    public final long createPrintJob(final PrintJobJson printjobinfo) throws IOException {
         CloseableHttpClient client = HttpClients.custom().setDefaultCredentialsProvider(credentials).build();
-        int printjob;
+        long printjob;
         try {
             HttpPost httppost = new HttpPost(apiUrl + "/printjobs");
             httppost.addHeader(childHeaders[0], childHeaders[1]);
@@ -443,7 +443,7 @@ public class APIClient {
             httppost.setEntity(jsonEntity);
             CloseableHttpResponse response = client.execute(httppost);
             try {
-                int responseParse = responseToJsonElement(response).getAsInt();
+                long responseParse = responseToJsonElement(response).getAsLong();
                 printjob = responseParse;
             } finally {
                 response.close();

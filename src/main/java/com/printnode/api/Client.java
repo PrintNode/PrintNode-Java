@@ -63,9 +63,9 @@ public class Client {
      * If the object is a JsonObject with different mappings, it is mapped to a Java Object.</p>
      * @param response JsonObject of the response.
      * @see JsonObject
-     * @see JsonArray
-     * @see JsonPrimitive
-     * @see JsonElement
+     * @see com.google.gson.JsonArray
+     * @see com.google.gson.JsonPrimitive
+     * @see com.google.gson.JsonElement
      * */
 
     public Client(final JsonObject response) {
