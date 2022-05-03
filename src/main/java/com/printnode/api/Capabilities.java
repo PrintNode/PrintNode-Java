@@ -3,6 +3,8 @@ package com.printnode.api;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +14,7 @@ import java.util.Set;
  * PrintNode API Docs Link:
  * <a href=https://www.printnode.com/docs/api/curl/#printer-capabilitie://www.printnode.com/docs/api/curl/#printer-capabilities>Capabilities</a>
  * */
-public class Capabilities {
+public class Capabilities implements Serializable {
 
     /**
      * The response body.

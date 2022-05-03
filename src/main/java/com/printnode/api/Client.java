@@ -1,10 +1,13 @@
 package com.printnode.api;
 
 import com.google.gson.JsonObject;
+
+import java.io.Serializable;
+
 /**
  * Object for a client.
  * */
-public class Client {
+public class Client implements Serializable {
 
     /**
      * The body of the response that made this client.
