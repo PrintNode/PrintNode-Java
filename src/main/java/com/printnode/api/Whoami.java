@@ -3,6 +3,8 @@ package com.printnode.api;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -10,7 +12,7 @@ import java.util.Set;
 /**
  * Object for a Whoami.
  * */
-public class Whoami {
+public class Whoami implements Serializable {
 
     /**
      * response body that made this Whoami.

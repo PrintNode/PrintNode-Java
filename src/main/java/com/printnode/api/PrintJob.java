@@ -2,10 +2,12 @@ package com.printnode.api;
 
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
+
 /**
  * Object for a PrintJob.
  * */
-public class PrintJob {
+public class PrintJob implements Serializable {
 
     /**
      * The response body that made this PrintJob.

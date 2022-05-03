@@ -1,10 +1,12 @@
 package com.printnode.api;
 
+import java.io.Serializable;
+
 /**
  * Auth class required for any APIClient creation.
  * Will throw an exception if neither ApiKey or EmailPassword are set.
  * */
-public class Auth {
+public class Auth implements Serializable {
 
     /**
      * API-Key to authenticate with.

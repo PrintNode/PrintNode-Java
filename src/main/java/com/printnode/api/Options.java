@@ -1,9 +1,11 @@
 package com.printnode.api;
 
+import java.io.Serializable;
+
 /**
  * Object to be serailized into JSON in createPrintJob.
  * */
-public class Options {
+public class Options implements Serializable {
 
     /**
      * Which bin you want to use....

@@ -2,10 +2,12 @@ package com.printnode.api;
 
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
+
 /**
  * Object for latest downloadable clients.
  * */
-public class Download {
+public class Download implements Serializable {
 
     /**
      * The response body that made this Download.

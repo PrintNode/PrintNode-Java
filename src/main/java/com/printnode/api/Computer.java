@@ -2,10 +2,12 @@ package com.printnode.api;
 
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
+
 /**
  * Object for a computer.
  * */
-public class Computer {
+public class Computer implements Serializable {
 
     /**
      * The respose body that made this computer.

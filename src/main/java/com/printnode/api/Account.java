@@ -1,13 +1,15 @@
 package com.printnode.api;
 
 
+import java.io.Serializable;
+
 /**
  * Account object.
  * When being used, will generally be created via the blank constructor.
  * The other constructor is for CreateAccountJson,
  * which requires firstname, lastname, email and password to be set.
  * */
-public class Account {
+public class Account implements Serializable {
 
     /**
      * Id of this account. Not set if made from CreateAccountJson.

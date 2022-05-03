@@ -2,10 +2,12 @@ package com.printnode.api;
 
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
+
 /**
  * Object for a State.
  * */
-public class State {
+public class State implements Serializable {
 
     /**
      * The response body that made this State.
